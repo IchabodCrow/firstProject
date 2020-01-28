@@ -1,0 +1,18 @@
+.MunuToogle{
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+    transition: opacity .22s ease-in;
+    z-index: 100;
+}
+
+.MunuToogle:hover {
+    opacity: .7;
+}
+
+.MunuToogle.open {
+    left: 320px;
+}
