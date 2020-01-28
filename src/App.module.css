@@ -1,0 +1,10 @@
+body{
+    height: 100%;
+}
+.formBox{
+    background:  linear-gradient(213.53deg, #6879BB 7.06%, #9300BB 95.23%);
+}
+.menuBox{
+    background: #EBF2FB;
+}
+

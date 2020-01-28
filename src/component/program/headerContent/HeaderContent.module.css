@@ -1,0 +1,33 @@
+.head{
+
+}
+.head{
+     font-family: Open Sans;
+     font-style: normal;
+     font-weight: bold;
+     font-size: 26px;
+     align-items: center;
+
+     color: #404064;
+ }
+.button{
+    width: 222px;
+    height: 36px;
+    background: #FFCE0C;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.21);
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+.container {
+    grid-area: hc;
+    display: flex;
+    justify-content: space-between;
+}
+

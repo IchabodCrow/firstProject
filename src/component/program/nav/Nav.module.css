@@ -1,0 +1,34 @@
+.bar{
+    display:flex;
+    flex-direction: column;
+    grid-area: n;
+
+}
+.bar{
+
+}
+.link {
+    text-decoration: none;
+    height: 36px;
+
+    font-family: Open Sans;
+    width: 200px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    padding: 6px 24px;
+    transition: 0.22s ease-in;
+
+    color: #535374;
+}
+.link:hover {
+    border-left: 3px solid #6879BB;
+    transition: 0.22s ease-in;
+    background-color:rgba(0,0,0,.1);
+    padding-left: 30px;
+
+}
+

@@ -1,0 +1,13 @@
+.box{
+    display: flex;
+    justify-content: center;
+}
+.logo{
+    margin: 32.12px;
+    width: 150.51px;
+    height: 47.88px;
+    color: #FFFFFF;
+    justify-content: center;
+
+}
+
