@@ -6,10 +6,10 @@ import Logo from "../logo/Logo";
 
 
 class Registration extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            form: {
+            User: {
                 name: '',
                 email: '',
                 password: '',
@@ -23,10 +23,10 @@ class Registration extends React.Component {
         this.onChange = this.onChange.bind(this);   //К данному методу мы использовали функцию байнд для привязки контекста this.
     };
 
-    onChange(event){        //К данному методу мы использовали функцию байнд для привязки контекста this. В данном методе использовали спрет оператор.
+    onChange(event) {        //К данному методу мы использовали функцию байнд для привязки контекста this. В данном методе использовали спрет оператор.
         this.setState({
-            form:{
-                ...this.state.form,
+            User: {
+                ...this.state.User,
                 [event.target.name]: event.target.value,
             },
         });
@@ -35,21 +35,19 @@ class Registration extends React.Component {
     onSubmit = (event) => {
         event.preventDefault();
         // Создать метода паролей
-        if (this.state.form.password === this.state.form.repPassword) {
+        if (this.state.User.password === this.state.User.repPassword) {
             this.setState({
                 error: '',
                 passwordError: true
 
             })
-        }
-
-        else {
+        } else {
             this.setState({
                 error: 'Пароли не совпадают',
                 passwordError: false
             });
             this.setState({
-                form: {
+                User: {
                     password: '',
                     repPassword: '',
                 }
@@ -57,7 +55,7 @@ class Registration extends React.Component {
 
 
         }
-        if(!this.state.form.password){
+        if (!this.state.User.password) {
             this.setState({
                 error: 'Поле "password" не может быть пустым',
                 passwordError: false
@@ -66,7 +64,7 @@ class Registration extends React.Component {
 
         //Создать методы инпута
 
-        if (this.state.form.name === '') {
+        if (this.state.User.name === '') {
             this.setState({
                 error: 'Поле обязательно для ввода',
                 nameError: false,
@@ -80,7 +78,7 @@ class Registration extends React.Component {
 
         //Создать метод для Email
 
-        if (this.state.form.email === '') {
+        if (this.state.User.email === '') {
             this.setState({
                 error: 'Поле обязательно для ввода',
                 emailError: false,
@@ -92,79 +90,80 @@ class Registration extends React.Component {
             })
         }
 
-        fetch('/auth/register', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(this.state.form),
-        })
-            .then(response => {
-                return response.json();
-            })
-            .then(response => {
-                console.log(response);
-                localStorage.setItem('TOKEN', JSON.stringify(response));
-            })
+        const query = `
+             User: {
+                name: '',
+                email: '',
+                password: '',
+            }`
+        ;
+        const url = "http://localhost:4000/api/registration";
+        const opts = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({query})
+        };
+        fetch(url, opts)
+            .then(res => res.json())
+            .then(res => {localStorage.setItem('TOKEN', JSON.stringify(res))})
             .catch(error => {
                 this.setState({
-                    error: 'Упс, ошибочка вышла хыыы',
-                });
+                            error: 'Упс, ошибочка вышла хыыы',
+                      })
             });
-        console.log()
     };
 
 
-    render(){
+    render() {
         return (
             <div>
                 <Logo/>
                 <div className={reg.box}>
-                        <form className={reg.form} onSubmit={this.onSubmit}>
-                            <div className={reg.text}> Задайте электронную почту и пароль для администратора системы</div>
+                    <form className={reg.form} onSubmit={this.onSubmit}>
+                        <div className={reg.text}> Задайте электронную почту и пароль для администратора системы</div>
 
-                            <input
-                                className={reg.login}
-                                placeholder='Введите имя'
-                                style={this.state.nameError === false ? { 'border-color': 'red' }: {}}
-                                name='name'
-                                onChange={this.onChange}
-                                value={this.state.form.name}
-                            />
+                        <input
+                            className={reg.login}
+                            placeholder='Введите имя'
+                            style={this.state.nameError === false ? {'border-color': 'red'} : {}}
+                            name='name'
+                            onChange={this.onChange}
+                            value={this.state.User.name}
+                        />
 
-                            <input
-                                style={this.state.emailError === false ? { 'border-color': 'red' }: {}}
-                                type='email'
-                                placeholder='Электронная почта'
-                                className={reg.login}
-                                name='email'
-                                onChange={this.onChange}
-                                value={this.state.form.email}
-                            />
+                        <input
+                            style={this.state.emailError === false ? {'border-color': 'red'} : {}}
+                            type='email'
+                            placeholder='Электронная почта'
+                            className={reg.login}
+                            name='email'
+                            onChange={this.onChange}
+                            value={this.state.User.email}
+                        />
 
-                            <input type='password'
-                                   className={reg.password}
-                                   style={this.state.passwordError === false ? { 'border-color': 'red' }: {}}
-                                   placeholder='Введите пароль'
-                                   name='password'
-                                   onChange={this.onChange}
-                                   value={this.state.form.password}
-                            />
+                        <input type='password'
+                               className={reg.password}
+                               style={this.state.passwordError === false ? {'border-color': 'red'} : {}}
+                               placeholder='Введите пароль'
+                               name='password'
+                               onChange={this.onChange}
+                               value={this.state.User.password}
+                        />
 
-                            <input type='password'
-                                   className={reg.password}
-                                   style={this.state.passwordError === false ? { 'border-color': 'red' }: {}}
-                                   placeholder='Повторите пароль'
-                                   name='repPassword'
-                                   onChange={this.onChange}
-                                   value={this.state.form.repPassword}
-                                   />
-                            {this.state.error ? (
-                                <Error error={this.state.error}/>
-                                ) : null}
-                            <button className={reg.button}  >Применить и войти</button>
-                            <NavLink to='/form'>Вернуться</NavLink>
-                        </form>
+                        <input type='password'
+                               className={reg.password}
+                               style={this.state.passwordError === false ? {'border-color': 'red'} : {}}
+                               placeholder='Повторите пароль'
+                               name='repPassword'
+                               onChange={this.onChange}
+                               value={this.state.User.repPassword}
+                        />
+                        {this.state.error ? (
+                            <Error error={this.state.error}/>
+                        ) : null}
+                        <button className={reg.button}>Применить и войти</button>
+                        <NavLink to='/form'>Вернуться</NavLink>
+                    </form>
                 </div>
             </div>
         );

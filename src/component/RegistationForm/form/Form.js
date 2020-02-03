@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom";
 import Logo from "../logo/Logo";
 
 import {customHistory} from "../../../App";
+import Error from "../error/Error";
 
 class Form extends React.Component{
     constructor(props){
@@ -42,12 +43,19 @@ class Form extends React.Component{
                 return response.json();
             })
             .then(response => {
-               localStorage.setItem('TOKEN', response);
-                customHistory.push('/board');
+                if (response.accessToken) {
+                    localStorage.setItem('TOKEN', response.accessToken)
+                    customHistory.push('/board');
+
+                } else {
+                    this.setState({
+                        error: 'Неправильно предоставлены учетные данные'
+                    })
+                }
                 console.log(response)
             })
             .catch(error => {
-                console.log('Жопа')
+                console.log('Ошибка поймана');
             })
     };
 
@@ -79,6 +87,9 @@ class Form extends React.Component{
                         />
                         <button className={form.button}>Войти в систему</button>
                         <NavLink className={form.a} to='/registration'>Регистрация</NavLink>
+                         {this.state.error ? (
+                        <Error error={this.state.error}/>
+                            ) : null}
 
                     </div>
                 </form>

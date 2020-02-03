@@ -7,7 +7,7 @@ import icon from './Union.png'
             <div className={header.box}>
                 <div className={header.header}>
                     <img  src={icon} className={header.icon}/>
-                    <span>Меню</span>
+                    <span className={header.span}>Меню</span>
                 </div>
             </div>
 
